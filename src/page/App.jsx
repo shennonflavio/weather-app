@@ -23,7 +23,7 @@ function App() {
 
   const [ closeResult, setCloseResult] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
-  const url = "https://api.hgbrasil.com/weather?key=14634cd4&city_name=";
+  const url = "https://api.hgbrasil.com/weather?key=f1cb6a43&city_name=";
 
 
   const handleInputSearch =(e) =>{
