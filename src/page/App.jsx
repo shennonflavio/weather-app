@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { arrowClose, arrowDown, arrowUp, search } from "../assets";
 import {
   City,
   CloseButton,
   Container,
-  DaysWeek,
+  // DaysWeek,
   Description,
   Input,
   Temp,
@@ -18,43 +18,48 @@ import {
   WrapperWeatherData,
   WrapperWeatherResult,
 } from "./styles";
+import DaysWeek from "./components/DaysWeek";
 
 function App() {
 
   const [ closeResult, setCloseResult] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
-  const url = "https://api.hgbrasil.com/weather?key=f1cb6a43&city_name=";
-
+  const [apiData, setApiData] = useState([])
+  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${inputSearch}?unitGroup=metric&include=events%2Cdays%2Ccurrent&key=474YT95ZP6R8H5CMRL9BRHH5U&lang=pt&contentType=json`;
 
   const handleInputSearch =(e) =>{
     setInputSearch(e.target.value)
   }
+// console.log(apiData)
 
   const handleWeatherDataRes =  () =>{
 
-      axios.get(`${url}`+`${inputSearch}`)
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
+        axios.get(url)
+    .then(function (response) {
+      // handle success
+      setApiData(response?.data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+
+    setCloseResult(true)
   }
 
+
+useEffect(()=>{
+  setCloseResult(false)
+},[])
 
 
 
   return (
     <Container>
       <Title>Previsão do tempo</Title>
-      <WrapperWeatherResult height={closeResult ? "0px" : "320px"}>
+      <WrapperWeatherResult height={!closeResult ? "0px" : "320px"}>
         <WrapperCity>
-          <City>Niterói, RJ - Brasil</City>
+          <City>{apiData?.resolvedAddress}</City>
           <CloseButton onClick={()=>setCloseResult(prev => !prev)}>
             <img src={arrowClose} alt="fechar" />
           </CloseButton>
@@ -62,48 +67,61 @@ function App() {
 
         <WrapperWeatherData>
           <WrapperTemp>
-            <Temp>20ºC</Temp>
-            <Description>Nublado</Description>
+            <Temp>
+              {apiData?.currentConditions?.temp.toFixed()} ºC
+            {/* <img src={apiData?.currentConditions?.icon} alt="fechar" /> */}
+            </Temp>
+            <Description>{apiData?.currentConditions?.conditions}</Description>
           </WrapperTemp>
           <WeatherData>
             <div>
               <span>
                 <img src={arrowDown} alt="seta para baixo" />
-                <b>&nbsp;16º</b>
+                <b>&nbsp;{apiData?.days?.[0]?.tempmin.toFixed()}º</b>
                 <img src={arrowUp} alt="seta para cima" />
-                <b>&nbsp;25º</b>
+                <b>&nbsp;{apiData?.days?.[0]?.tempmax.toFixed()}º</b>
               </span>
               <span>
-                Vento &nbsp;<b>18km/h</b>
+                Vento &nbsp;<b>{apiData?.currentConditions?.windspeed.toFixed()}km/h</b>
               </span>
             </div>
             <div>
               <span>
-                Sensação&nbsp; <b>19º</b>
+                Sensação&nbsp; <b>{apiData?.currentConditions?.feelslike.toFixed()}º</b>
               </span>
               <span>
-                Humidade &nbsp;<b>89%</b>
+                Humidade &nbsp;<b>{apiData?.currentConditions?.humidity.toFixed()}%</b>
               </span>
             </div>
           </WeatherData>
         </WrapperWeatherData>
         <WrapperDaysWeek>
-          <DaysWeek>
-            <p>Terça</p>
-            <span>16º&nbsp;26º</span>
+          <DaysWeek dataTemp={apiData?.days?.[1]} days={apiData?.days?.[1]?.datetimeEpoch} />
+          <DaysWeek dataTemp={apiData?.days?.[2]} days={apiData?.days?.[2]?.datetimeEpoch} />
+          <DaysWeek dataTemp={apiData?.days?.[3]} days={apiData?.days?.[3]?.datetimeEpoch} />
+          <DaysWeek dataTemp={apiData?.days?.[4]} days={apiData?.days?.[4]?.datetimeEpoch} />
+
+          {/* <DaysWeek>
+            <p>{date.getDate(apiData?.days?.[2]?.datetimeEpoch)}</p>
+              <span>
+              {apiData?.days?.[2]?.tempmin.toFixed()}º&nbsp;
+              {apiData?.days?.[2]?.tempmax.toFixed()}º
+              </span>
           </DaysWeek>
           <DaysWeek>
             <p>Terça</p>
-            <span>16º&nbsp;26º</span>
+              <span>
+              {apiData?.days?.[3]?.tempmin.toFixed()}º&nbsp;
+              {apiData?.days?.[3]?.tempmax.toFixed()}º
+              </span>
           </DaysWeek>
           <DaysWeek>
             <p>Terça</p>
-            <span>16º&nbsp;26º</span>
-          </DaysWeek>
-          <DaysWeek>
-            <p>Terça</p>
-            <span>16º&nbsp;26º</span>
-          </DaysWeek>
+              <span>
+              {apiData?.days?.[4]?.tempmin.toFixed()}º&nbsp;
+              {apiData?.days?.[4]?.tempmax.toFixed()}º
+              </span>
+          </DaysWeek> */}
         </WrapperDaysWeek>
       </WrapperWeatherResult>
 

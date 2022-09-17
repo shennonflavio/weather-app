@@ -113,12 +113,12 @@ export const WeatherData = styled.div`
 `;
 
 export const Temp = styled.h1`
-  font-size: 3rem;
+  font-size: 1.8rem;
   color: #505050;
 `;
 
 export const Description = styled.h1`
-  font-size: 3rem;
+  font-size: 1.2rem;
 
   color: #505050;
 `;
