@@ -102,17 +102,17 @@ function App() {
   };
 
 
-  async function handleAllCapitals(){
-    await axios.get(urlCapital1).then((res)=> setCapital1(res))
-    await axios.get(urlCapital2).then((res)=> setCapital2(res))
-    await axios.get(urlCapital3).then((res)=> setCapital3(res))
-    await axios.get(urlCapital4).then((res)=> setCapital4(res))
-    await axios.get(urlCapital5).then((res)=> setCapital5(res))
-    await axios.get(urlCapital6).then((res)=> setCapital6(res))
-    await axios.get(urlCapital7).then((res)=> setCapital7(res))
-    await axios.get(urlCapital8).then((res)=> setCapital8(res))
-    await axios.get(urlCapital9).then((res)=> setCapital9(res))
-    await axios.get(urlCapital10).then((res)=> setCapital10(res))
+ function handleAllCapitals(){
+     axios.get(urlCapital1).then((res)=> setCapital1(res))
+     axios.get(urlCapital2).then((res)=> setCapital2(res))
+     axios.get(urlCapital3).then((res)=> setCapital3(res))
+     axios.get(urlCapital4).then((res)=> setCapital4(res))
+     axios.get(urlCapital5).then((res)=> setCapital5(res))
+     axios.get(urlCapital6).then((res)=> setCapital6(res))
+     axios.get(urlCapital7).then((res)=> setCapital7(res))
+     axios.get(urlCapital8).then((res)=> setCapital8(res))
+     axios.get(urlCapital9).then((res)=> setCapital9(res))
+     axios.get(urlCapital10).then((res)=> setCapital10(res))
   }
 
 
