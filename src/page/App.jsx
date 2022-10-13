@@ -79,18 +79,21 @@ function App() {
 
 
 
- console.log(capitals1.city1)
 
 
   const handleInputSearch = (e) => {
     setInputSearch(e.target.value);
   };
 
-  const handleWeatherDataRes = () => {
-    axios
+   async function handleWeatherDataRes (){
+   await axios
       .get(url)
       .then(function (response) {
         // handle success
+        if (response.status === 200) {
+          setInputSearch("")
+
+        }
         setApiData(response?.data);
       })
       .catch(function (error) {
@@ -115,6 +118,13 @@ function App() {
      axios.get(urlCapital10).then((res)=> setCapital10(res))
   }
 
+  function handleKeySearch (e){
+    if (e.key === "Enter") {
+      handleWeatherDataRes()
+    }
+
+  }
+
 
   useEffect(() => {
     handleAllCapitals()
@@ -122,7 +132,6 @@ function App() {
     width;
   }, []);
 
-  console.log(capital1, capital2)
 
   return (
     <Container>
@@ -196,8 +205,10 @@ function App() {
             onChange={handleInputSearch}
             type="text"
             placeholder="Insira aqui o nome da cidade"
+            value={inputSearch}
+            onKeyDown={(e)=> handleKeySearch(e)}
           />
-          <button onClick={handleWeatherDataRes}>
+          <button onClick={handleWeatherDataRes} >
             <img src={search} alt="pesquisa" />
           </button>
         </div>
