@@ -13,13 +13,13 @@ export const DayOfWeek = styled.div`
 
   p {
     font-weight: 800;
-    font-size: 20px;
+    font-size: 1rem;
     color: #505050;
   }
 
   span {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 0.9rem;
     color: #ff8207;
   }
 `;

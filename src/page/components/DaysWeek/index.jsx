@@ -3,7 +3,7 @@ import { DayOfWeek } from "./styles";
 
 function DaysWeek({ dataTemp, days }) {
   const [day, setDay] = useState("");
-  const daysWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+  const daysWeek = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
   const date = new Date(days * 1000);
 
   useMemo(()=>[
@@ -14,11 +14,10 @@ function DaysWeek({ dataTemp, days }) {
   })
   ],[days])
 
-
-
   return (
     <DayOfWeek>
       <p>{day}</p>
+
       <span>
         {dataTemp?.tempmin.toFixed()}º&nbsp;
         {dataTemp?.tempmax.toFixed()}º
