@@ -150,7 +150,6 @@ function App() {
           <WrapperTemp>
             <Temp>
               {apiData?.currentConditions?.temp.toFixed()} ºC
-              {/* <img src={apiData?.currentConditions?.icon} alt="fechar" /> */}
             </Temp>
             <Description>{apiData?.currentConditions?.conditions}</Description>
           </WrapperTemp>
